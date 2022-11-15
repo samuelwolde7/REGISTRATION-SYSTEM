@@ -1,13 +1,15 @@
 import express from "express"
 import cors from "cors"
 import mongoose from "mongoose"
+//const DB = process.env.DATABASE
+const port = process.env.PORT || '5000'
 
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded())
 app.use(cors())
 
-mongoose.connect("mongodb://localhost:27017/myLoginRegisterDB", {
+mongoose.connect("mongodb+srv://samuel:samuel@cluster0.hwejtfw.mongodb.net/myLoginRegisterDB", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, () => {
@@ -59,8 +61,14 @@ app.post("/register", (req, res)=> {
         }
     })
     
-}) 
+})
 
-app.listen(9002,() => {
-    console.log("BE started at port 9002")
+
+
+//if(process.env.NODE_ENV === 'production') {
+//app.use(express.static('client/build'))
+//}
+
+app.listen(port, async (req, res) => {
+    console.log(`BE started at port ${port}`)
 })
